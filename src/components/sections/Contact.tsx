@@ -8,9 +8,9 @@ const contactInfo = [
   {
     icon: Phone,
     label: 'Phone',
-    value: 'Get in touch →',
-    href: '#contact',
-    isAction: true,
+    value: '(416) 555-0192',
+    href: 'tel:+14165550192',
+    isAction: false,
   },
   {
     icon: Mail,
@@ -155,7 +155,7 @@ export default function Contact() {
                     <Icon size={16} className="text-brand" />
                   </div>
                   <div>
-                    <div className="text-gray-500 text-xs mb-0.5">{label}</div>
+                    <div className="text-gray-400 text-xs mb-0.5">{label}</div>
                     {href ? (
                       <a
                         href={href}
@@ -228,7 +228,7 @@ export default function Contact() {
               >
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1.5 font-medium">Full Name</label>
+                    <label className="block text-xs text-gray-400 mb-1.5 font-medium">Full Name</label>
                     <input
                       type="text"
                       name="name"
@@ -241,7 +241,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1.5 font-medium">Email</label>
+                    <label className="block text-xs text-gray-400 mb-1.5 font-medium">Email</label>
                     <input
                       type="email"
                       name="email"
@@ -255,7 +255,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1.5 font-medium">Phone (optional)</label>
+                  <label className="block text-xs text-gray-400 mb-1.5 font-medium">Phone (optional)</label>
                   <input
                     type="tel"
                     name="phone"
@@ -267,35 +267,43 @@ export default function Contact() {
                   />
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1.5 font-medium">Service</label>
+                  <div className="relative">
+                    <label className="block text-xs text-gray-400 mb-1.5 font-medium">Service</label>
                     <select
                       name="service"
+                      required
                       value={form.service}
                       onChange={handleChange}
                       className={inputClass}
-                      style={{ ...inputStyle, appearance: 'none' }}
+                      style={{ ...inputStyle, appearance: 'none', paddingRight: '2.5rem' }}
                     >
                       <option value="" disabled>Select a service</option>
                       {services.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
+                    <div className="pointer-events-none absolute right-3 top-[2.15rem] text-gray-500">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1.5 font-medium">Budget Range</label>
+                  <div className="relative">
+                    <label className="block text-xs text-gray-400 mb-1.5 font-medium">Budget Range</label>
                     <select
                       name="budget"
+                      required
                       value={form.budget}
                       onChange={handleChange}
                       className={inputClass}
-                      style={{ ...inputStyle, appearance: 'none' }}
+                      style={{ ...inputStyle, appearance: 'none', paddingRight: '2.5rem' }}
                     >
                       <option value="" disabled>Select budget</option>
                       {budgets.map((b) => <option key={b} value={b}>{b}</option>)}
                     </select>
+                    <div className="pointer-events-none absolute right-3 top-[2.15rem] text-gray-500">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1.5 font-medium">Message</label>
+                  <label className="block text-xs text-gray-400 mb-1.5 font-medium">Message</label>
                   <textarea
                     name="message"
                     required

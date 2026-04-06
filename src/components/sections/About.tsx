@@ -112,7 +112,7 @@ export default function About() {
                 </div>
 
                 <h3 className="font-heading font-bold text-white text-sm mb-2">{title}</h3>
-                <p className="text-gray-500 text-xs leading-relaxed">{description}</p>
+                <p className="text-gray-400 text-xs leading-relaxed">{description}</p>
               </motion.div>
             ))}
           </motion.div>

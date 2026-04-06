@@ -123,7 +123,7 @@ export default function AISection() {
                     <Icon size={16} className="text-brand" />
                   </div>
                   <h3 className="font-heading font-semibold text-white text-sm mb-1.5">{title}</h3>
-                  <p className="text-gray-500 text-xs leading-relaxed">{description}</p>
+                  <p className="text-gray-400 text-xs leading-relaxed">{description}</p>
                 </motion.div>
               ))}
             </div>

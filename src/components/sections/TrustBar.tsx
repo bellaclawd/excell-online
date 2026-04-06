@@ -21,7 +21,7 @@ export default function TrustBar() {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 text-center">
-        <p className="text-xs font-medium text-gray-500 uppercase tracking-widest">
+        <p className="text-xs font-medium text-gray-400 uppercase tracking-widest">
           Trusted by businesses across the GTA
         </p>
       </div>

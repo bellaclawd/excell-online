@@ -11,17 +11,25 @@ import Testimonials from './components/sections/Testimonials'
 import About from './components/sections/About'
 import FAQ from './components/sections/FAQ'
 import Contact from './components/sections/Contact'
+import CTABanner from './components/sections/CTABanner'
 
 export default function App() {
   return (
     <div className="min-h-screen bg-[#080808] text-[#F5F5F5] overflow-x-hidden">
+      <a
+        href="#hero"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-brand focus:text-white focus:text-sm focus:font-medium"
+      >
+        Skip to content
+      </a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <TrustBar />
         <Services />
         <AISection />
         <Portfolio />
+        <CTABanner />
         <WhyUs />
         <Process />
         <Testimonials />

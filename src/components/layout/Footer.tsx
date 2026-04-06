@@ -70,7 +70,7 @@ export default function Footer() {
           {/* Col 1: Logo + tagline + social */}
           <div className="lg:col-span-1">
             <Logo />
-            <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-[220px]">
+            <p className="mt-4 text-sm text-gray-400 leading-relaxed max-w-[220px]">
               Toronto's AI-powered web agency. We build digital products that perform.
             </p>
             <div className="flex items-center gap-3 mt-6">

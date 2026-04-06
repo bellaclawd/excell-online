@@ -57,6 +57,9 @@ export default function FAQ() {
               >
                 <button
                   onClick={() => toggle(item.id)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${item.id}`}
+                  id={`faq-btn-${item.id}`}
                   className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
                 >
                   <span className="font-heading font-semibold text-white text-sm sm:text-base">
@@ -83,7 +86,12 @@ export default function FAQ() {
                       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-5 text-sm text-gray-400 leading-relaxed border-t border-white/5 pt-4">
+                      <div
+                        id={`faq-answer-${item.id}`}
+                        role="region"
+                        aria-labelledby={`faq-btn-${item.id}`}
+                        className="px-6 pb-5 text-sm text-gray-400 leading-relaxed border-t border-white/5 pt-4"
+                      >
                         {item.answer}
                       </div>
                     </motion.div>

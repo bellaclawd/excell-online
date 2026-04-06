@@ -23,11 +23,11 @@ const stats = [
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.04 } },
 }
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
 }
 
 export default function Hero() {
@@ -127,7 +127,7 @@ export default function Hero() {
                   {i > 0 && <div className="w-px h-10 bg-white/10 mx-6" />}
                   <div>
                     <div className="font-heading font-bold text-2xl text-white">{stat.value}</div>
-                    <div className="text-xs text-gray-500">{stat.label}</div>
+                    <div className="text-xs text-gray-400">{stat.label}</div>
                   </div>
                 </div>
               ))}
@@ -139,13 +139,13 @@ export default function Hero() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative hidden lg:block"
+            className="relative"
           >
-            {/* Floating badges */}
+            {/* Floating badges (desktop only — absolute positioning breaks on mobile) */}
             {floatingBadges.map((badge) => (
               <motion.div
                 key={badge.label}
-                className="absolute z-20 px-3 py-1.5 rounded-full text-xs font-medium text-white border border-white/10 bg-white/5 backdrop-blur-sm whitespace-nowrap"
+                className="absolute z-20 px-3 py-1.5 rounded-full text-xs font-medium text-white border border-white/10 bg-white/5 backdrop-blur-sm whitespace-nowrap hidden lg:block"
                 style={badge.style}
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: Math.random() * 1.5 }}

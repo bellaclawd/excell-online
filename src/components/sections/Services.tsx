@@ -99,7 +99,7 @@ export default function Services() {
                 </div>
 
                 <h3 className="font-heading font-semibold text-white text-base mb-2 relative">{service.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed relative">{service.description}</p>
+                <p className="text-gray-400 text-sm leading-relaxed relative">{service.description}</p>
               </motion.div>
             )
           })}
@@ -141,7 +141,7 @@ export default function Services() {
                     <h3 className="font-heading font-bold text-white text-2xl">AI Agents & Automation</h3>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-brand bg-brand/10 border border-brand/20 px-2 py-0.5 rounded-full">🔥 Hottest</span>
                   </div>
-                  <p className="text-gray-500 text-sm">Autonomous agents that run your business ops 24/7</p>
+                  <p className="text-gray-400 text-sm">Autonomous agents that run your business ops 24/7</p>
                 </div>
               </div>
               <p className="text-gray-400 leading-relaxed mb-6 max-w-2xl">

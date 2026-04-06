@@ -12,7 +12,7 @@ export default function Testimonials() {
   const next = () => setActive((a) => (a + 1) % testimonials.length)
 
   return (
-    <section id="testimonials" className="py-24" style={{ background: '#111111' }}>
+    <section id="testimonials" className="py-24" style={{ background: '#0f0a0b' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -91,7 +91,7 @@ export default function Testimonials() {
                     <div className="text-gray-400 text-sm">
                       {current.role}, {current.company}
                     </div>
-                    <div className="text-gray-500 text-xs mt-0.5">{current.location}</div>
+                    <div className="text-gray-400 text-xs mt-0.5">{current.location}</div>
                   </div>
                 </div>
               </motion.div>

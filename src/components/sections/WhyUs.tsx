@@ -35,7 +35,7 @@ const differentiators = [
 
 export default function WhyUs() {
   return (
-    <section id="why-us" className="py-24" style={{ background: '#111111' }}>
+    <section id="why-us" className="py-24" style={{ background: '#131313' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -65,7 +65,7 @@ export default function WhyUs() {
             }}
           >
             <div className="max-w-2xl mb-10">
-              <div className="text-[11px] uppercase tracking-[0.32em] text-gray-500 font-semibold mb-4">Core Advantage</div>
+              <div className="text-[11px] uppercase tracking-[0.32em] text-gray-400 font-semibold mb-4">Core Advantage</div>
               <h3 className="font-heading font-bold text-white text-3xl sm:text-4xl leading-tight mb-4">
                 Premium execution,
                 <br />
@@ -107,7 +107,7 @@ export default function WhyUs() {
               border: '1px solid rgba(255,255,255,0.07)',
             }}
           >
-            <div className="text-[11px] uppercase tracking-[0.32em] text-gray-500 font-semibold mb-6">What Makes It Credible</div>
+            <div className="text-[11px] uppercase tracking-[0.32em] text-gray-400 font-semibold mb-6">What Makes It Credible</div>
             <div className="space-y-4">
               {differentiators.map((item, i) => (
                 <div
