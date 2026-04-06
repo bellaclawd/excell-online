@@ -31,13 +31,16 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Featured items — taller */}
           {featured.map((item, i) => (
-            <motion.div
+            <motion.a
               key={item.id}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer h-[400px]"
+              className="group relative rounded-2xl overflow-hidden cursor-pointer h-[400px] block"
               style={{ border: '1px solid rgba(255,255,255,0.07)' }}
               whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
             >
@@ -79,18 +82,21 @@ export default function Portfolio() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
 
           {/* Regular items — shorter */}
           {regular.map((item, i) => (
-            <motion.div
+            <motion.a
               key={item.id}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: (i + 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer h-[280px]"
+              className="group relative rounded-2xl overflow-hidden cursor-pointer h-[280px] block"
               style={{ border: '1px solid rgba(255,255,255,0.07)' }}
               whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
             >
@@ -128,7 +134,7 @@ export default function Portfolio() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>
