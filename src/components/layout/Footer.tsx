@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Twitter, Linkedin, Instagram, Facebook } from 'lucide-react'
 
 function Logo() {
   return (
@@ -42,12 +41,18 @@ const serviceLinks = [
   'Mobile Apps',
 ]
 
-const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Facebook, href: '#', label: 'Facebook' },
-]
+function ObfuscatedEmail() {
+  const codes = [115,101,118,64,101,120,99,101,108,108,111,110,108,105,110,101,46,99,97]
+  const email = codes.map(c => String.fromCharCode(c)).join('')
+  return (
+    <button
+      onClick={() => { window.location.href = 'mailto:' + email }}
+      className="hover:text-white transition-colors duration-200 cursor-pointer p-0 bg-transparent border-0 text-gray-400"
+    >
+      {email}
+    </button>
+  )
+}
 
 export default function Footer() {
   const handleNav = (href: string) => {
@@ -73,18 +78,6 @@ export default function Footer() {
             <p className="mt-4 text-sm text-gray-400 leading-relaxed max-w-[220px]">
               Toronto's AI-powered web agency. We build digital products that perform.
             </p>
-            <div className="flex items-center gap-3 mt-6">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 hover:text-white hover:bg-white/5 transition-all duration-200 border border-white/8"
-                >
-                  <Icon size={15} />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Col 2: Quick Links */}
@@ -127,9 +120,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-400">
               <li>Toronto, Ontario, Canada</li>
               <li>
-                <a href="mailto:hello@excellonline.ca" className="hover:text-white transition-colors duration-200">
-                  hello@excellonline.ca
-                </a>
+                <ObfuscatedEmail />
               </li>
               <li className="pt-2">
                 <motion.button
