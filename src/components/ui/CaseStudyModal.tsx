@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, ExternalLink, X } from 'lucide-react'
+import { ArrowUpRight, ExternalLink, Link2, X } from 'lucide-react'
 import type { PortfolioItem } from '../../data/portfolio'
 
 interface CaseStudyModalProps {
@@ -8,6 +9,71 @@ interface CaseStudyModalProps {
 }
 
 export default function CaseStudyModal({ item, onClose }: CaseStudyModalProps) {
+  const dialogRef = useRef<HTMLDivElement | null>(null)
+  const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    if (!item) {
+      return undefined
+    }
+
+    setCopied(false)
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!dialogRef.current || event.key !== 'Tab') {
+        return
+      }
+
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      )
+
+      const items = Array.from(focusable).filter((element) => !element.hasAttribute('disabled'))
+
+      if (items.length === 0) {
+        return
+      }
+
+      const first = items[0]
+      const last = items[items.length - 1]
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [item])
+
+  const copyCaseStudyLink = async () => {
+    if (!item) {
+      return
+    }
+
+    const url = new URL(window.location.href)
+    url.searchParams.set('case-study', item.id)
+    if (!url.hash) {
+      url.hash = '#portfolio'
+    }
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url.toString())
+      } else {
+        window.prompt('Copy this case study link', url.toString())
+      }
+    } catch {
+      window.prompt('Copy this case study link', url.toString())
+    }
+
+    setCopied(true)
+  }
+
   return (
     <AnimatePresence>
       {item && (
@@ -24,6 +90,7 @@ export default function CaseStudyModal({ item, onClose }: CaseStudyModalProps) {
 
           <div className="fixed inset-0 z-[71] overflow-y-auto px-4 py-6 sm:px-6 sm:py-10">
             <motion.div
+              ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-labelledby={`case-study-title-${item.id}`}
@@ -181,6 +248,15 @@ export default function CaseStudyModal({ item, onClose }: CaseStudyModalProps) {
                       Visit live project
                       <ExternalLink size={15} />
                     </a>
+
+                    <button
+                      type="button"
+                      onClick={copyCaseStudyLink}
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-white font-semibold border border-white/12 bg-white/[0.05] hover:border-white/20 transition-colors ml-0 mt-3 sm:ml-3 sm:mt-0"
+                    >
+                      <Link2 size={15} />
+                      {copied ? 'Link copied' : 'Copy case study link'}
+                    </button>
 
                     <div className="flex flex-wrap gap-2 mt-5">
                       {item.tags.map((tag) => (

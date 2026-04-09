@@ -6,10 +6,53 @@ import Button from '../ui/Button'
 import CaseStudyModal from '../ui/CaseStudyModal'
 import { portfolioItems, type PortfolioItem } from '../../data/portfolio'
 
+const CASE_STUDY_PARAM = 'case-study'
+
+function getCaseStudyFromUrl() {
+  const params = new URLSearchParams(window.location.search)
+  const id = params.get(CASE_STUDY_PARAM)
+
+  if (!id) {
+    return null
+  }
+
+  return portfolioItems.find((item) => item.id === id) ?? null
+}
+
+function updateCaseStudyUrl(id: string | null, mode: 'push' | 'replace') {
+  const url = new URL(window.location.href)
+
+  if (id) {
+    url.searchParams.set(CASE_STUDY_PARAM, id)
+    if (!url.hash) {
+      url.hash = '#portfolio'
+    }
+  } else {
+    url.searchParams.delete(CASE_STUDY_PARAM)
+  }
+
+  window.history[mode === 'push' ? 'pushState' : 'replaceState']({}, '', url)
+}
+
 export default function Portfolio() {
-  const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(null)
+  const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(() => {
+    if (typeof window === 'undefined') {
+      return null
+    }
+
+    return getCaseStudyFromUrl()
+  })
   const featured = portfolioItems.filter((p) => p.featured)
   const regular = portfolioItems.filter((p) => !p.featured)
+
+  useEffect(() => {
+    const syncFromUrl = () => {
+      setActiveCaseStudy(getCaseStudyFromUrl())
+    }
+
+    window.addEventListener('popstate', syncFromUrl)
+    return () => window.removeEventListener('popstate', syncFromUrl)
+  }, [])
 
   useEffect(() => {
     if (!activeCaseStudy) {
@@ -17,20 +60,22 @@ export default function Portfolio() {
     }
 
     const previousOverflow = document.body.style.overflow
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setActiveCaseStudy(null)
-      }
-    }
-
     document.body.style.overflow = 'hidden'
-    window.addEventListener('keydown', handleKeyDown)
 
     return () => {
       document.body.style.overflow = previousOverflow
-      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [activeCaseStudy])
+
+  const openCaseStudy = (item: PortfolioItem) => {
+    setActiveCaseStudy(item)
+    updateCaseStudyUrl(item.id, 'push')
+  }
+
+  const closeCaseStudy = () => {
+    setActiveCaseStudy(null)
+    updateCaseStudyUrl(null, 'replace')
+  }
 
   return (
     <>
@@ -94,7 +139,7 @@ export default function Portfolio() {
                 <div className="absolute top-4 right-4 flex gap-2">
                   <button
                     type="button"
-                    onClick={() => setActiveCaseStudy(item)}
+                    onClick={() => openCaseStudy(item)}
                     aria-label={`Read the ${item.title} case study`}
                     className="w-10 h-10 rounded-full border border-white/15 bg-black/25 text-white flex items-center justify-center backdrop-blur-sm hover:border-white/30 transition-colors"
                   >
@@ -128,7 +173,7 @@ export default function Portfolio() {
                     ))}
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    <Button size="sm" onClick={() => setActiveCaseStudy(item)}>
+                    <Button size="sm" onClick={() => openCaseStudy(item)}>
                       Read case study
                     </Button>
                     <a
@@ -180,7 +225,7 @@ export default function Portfolio() {
 
                 <button
                   type="button"
-                  onClick={() => setActiveCaseStudy(item)}
+                  onClick={() => openCaseStudy(item)}
                   aria-label={`Read the ${item.title} case study`}
                   className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 bg-black/25 text-white flex items-center justify-center backdrop-blur-sm hover:border-white/30 transition-colors"
                 >
@@ -212,7 +257,7 @@ export default function Portfolio() {
                   <div className="flex flex-wrap gap-3">
                     <button
                       type="button"
-                      onClick={() => setActiveCaseStudy(item)}
+                      onClick={() => openCaseStudy(item)}
                       className="inline-flex items-center gap-2 text-sm text-white font-semibold hover:text-brand-light transition-colors"
                     >
                       Read case study
@@ -235,7 +280,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <CaseStudyModal item={activeCaseStudy} onClose={() => setActiveCaseStudy(null)} />
+      <CaseStudyModal item={activeCaseStudy} onClose={closeCaseStudy} />
     </>
   )
 }
