@@ -6,12 +6,13 @@ import { siteConfig } from '../../config/site'
 import { navigateToHref, scrollToHash } from '../../utils/navigation'
 
 const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'AI Agents', href: '#ai-agents' },
-  { label: 'Our Work', href: '#portfolio' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
-]
+  { label: 'Services', href: '#services', type: 'hash' },
+  { label: 'AI Agents', href: '#ai-agents', type: 'hash' },
+  { label: 'Our Work', href: '#portfolio', type: 'hash' },
+  { label: 'Case Studies', href: '/work/index.html', type: 'page' },
+  { label: 'About', href: '#about', type: 'hash' },
+  { label: 'Contact', href: '#contact', type: 'hash' },
+] as const
 
 function Logo() {
   return (
@@ -55,7 +56,9 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    const sectionIds = navLinks.map((l) => l.href.replace('#', ''))
+    const sectionIds = navLinks
+      .filter((link) => link.type === 'hash')
+      .map((link) => link.href.replace('#', ''))
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -98,18 +101,28 @@ export default function Navbar() {
             {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  aria-current={activeSection === link.href ? 'page' : undefined}
-                  className={`text-sm transition-colors duration-200 font-medium ${
-                    activeSection === link.href
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  {link.label}
-                </button>
+                link.type === 'hash' ? (
+                  <button
+                    key={link.href}
+                    onClick={() => handleNavClick(link.href)}
+                    aria-current={activeSection === link.href ? 'page' : undefined}
+                    className={`text-sm transition-colors duration-200 font-medium ${
+                      activeSection === link.href
+                        ? 'text-white'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm transition-colors duration-200 font-medium text-gray-400 hover:text-white"
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
             </div>
 
@@ -144,13 +157,24 @@ export default function Navbar() {
           >
             <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
               {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className="w-full text-left px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200 font-medium"
-                >
-                  {link.label}
-                </button>
+                link.type === 'hash' ? (
+                  <button
+                    key={link.href}
+                    onClick={() => handleNavClick(link.href)}
+                    className="w-full text-left px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200 font-medium"
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block w-full text-left px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200 font-medium"
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
               <div className="pt-2 pb-1">
                 <Button

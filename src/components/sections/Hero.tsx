@@ -18,10 +18,16 @@ const chatMessages = [
 ]
 
 const stats = [
-  { value: '10+', label: 'Years' },
-  { value: '200+', label: 'Projects' },
-  { value: 'Toronto', label: 'Based' },
+  { value: '4', label: 'Live case studies' },
+  { value: '1 day', label: 'Typical reply' },
+  { value: 'Senior-led', label: 'From scope to launch' },
 ]
+
+const proofLinks = [
+  { label: 'Browse case study library', href: '/work/index.html', type: 'page' },
+  { label: 'See how engagements run', href: '#process', type: 'hash' },
+  { label: 'Read common questions', href: '#faq', type: 'hash' },
+] as const
 
 const containerVariants = {
   hidden: {},
@@ -115,6 +121,28 @@ export default function Hero() {
               <Button variant="ghost" size="lg" onClick={() => scrollToHash('#portfolio')}>
                 See Our Work
               </Button>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-3 mb-10">
+              {proofLinks.map((link) => (
+                link.type === 'hash' ? (
+                  <button
+                    key={link.label}
+                    onClick={() => scrollToHash(link.href)}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-300 border border-white/10 bg-white/5 hover:text-white hover:border-white/20 transition-colors"
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-300 border border-white/10 bg-white/5 hover:text-white hover:border-white/20 transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )
+              ))}
             </motion.div>
 
             {/* Stats */}
