@@ -33,15 +33,15 @@ const useCases = [
 ]
 
 const openClawBullets = [
-  'No-code agent builder for non-technical teams',
-  'Deploy in minutes, not weeks',
-  'Native CRM, calendar & email integrations',
+  'Best for intake, booking, FAQs, and fast-start automation',
+  'Launch quickly with clearer guardrails and branded responses',
+  'Connects cleanly to calendars, CRMs, and email workflows',
 ]
 
 const hermesBullets = [
-  'Advanced multi-step reasoning pipelines',
-  'Custom model fine-tuning available',
-  'Enterprise-grade security & compliance',
+  'Built for multi-step routing, approvals, and more tailored logic',
+  'Useful when the workflow spans several systems or edge cases',
+  'Designed for custom automations, not one-size-fits-all bots',
 ]
 
 const containerVariants = {
@@ -84,15 +84,19 @@ export default function AISection() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 max-w-2xl"
         >
-          <SectionBadge className="mb-4">🔥 Our Hottest Service</SectionBadge>
+          <SectionBadge className="mb-4">AI Workflows & Agents</SectionBadge>
           <h2 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-3">
-            Your Business, Running on AI Agents.
+            AI systems that keep leads
+            <br />
+            and operations moving.
           </h2>
           <p className="text-xl font-heading text-gradient font-semibold mb-5">
-            24 hours a day. 7 days a week.
+            Helpful, branded, and accountable.
           </p>
           <p className="text-gray-400 text-lg leading-relaxed">
-            Stop losing leads to after-hours gaps. Stop paying staff to answer the same questions. AI agents handle the repetitive work so your team can focus on what actually grows your business.
+            For businesses that lose time to repetitive intake, booking back-and-forth, FAQs,
+            and manual follow-ups. We build automation that feels like part of your team, not a
+            novelty bolted onto the site.
           </p>
         </motion.div>
 
@@ -146,7 +150,10 @@ export default function AISection() {
                   <div className="w-8 h-8 rounded-lg bg-brand/15 border border-brand/30 flex items-center justify-center">
                     <Bot size={15} className="text-brand" />
                   </div>
-                  <span className="font-heading font-bold text-white text-sm">OpenClaw</span>
+                  <div>
+                    <div className="font-heading font-bold text-white text-sm">Fast-Start Agent Deployments</div>
+                    <div className="text-[11px] uppercase tracking-[0.28em] text-red-300 mt-1">Powered by OpenClaw</div>
+                  </div>
                 </div>
                 <ul className="space-y-2 mb-4">
                   {openClawBullets.map((b) => (
@@ -162,7 +169,7 @@ export default function AISection() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs text-brand-light hover:text-brand font-medium transition-colors"
                 >
-                  openclaw.ai <ExternalLink size={11} />
+                  Explore OpenClaw <ExternalLink size={11} />
                 </a>
               </motion.div>
 
@@ -179,7 +186,10 @@ export default function AISection() {
                   <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                     <Zap size={15} className="text-gray-400" />
                   </div>
-                  <span className="font-heading font-bold text-white text-sm">Hermes</span>
+                  <div>
+                    <div className="font-heading font-bold text-white text-sm">Custom Workflow Builds</div>
+                    <div className="text-[11px] uppercase tracking-[0.28em] text-gray-500 mt-1">Engineered with Hermes</div>
+                  </div>
                 </div>
                 <ul className="space-y-2 mb-4">
                   {hermesBullets.map((b) => (
@@ -197,7 +207,7 @@ export default function AISection() {
                   }}
                   className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-white font-medium transition-colors"
                 >
-                  Learn more <ArrowRight size={11} />
+                  Discuss your workflow <ArrowRight size={11} />
                 </a>
               </motion.div>
             </div>
@@ -222,12 +232,12 @@ export default function AISection() {
               }}
             >
               <h3 className="font-heading font-bold text-white text-lg mb-2">
-                Ready to automate your business?
+                Want to see which automation actually fits?
               </h3>
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                 {siteConfig.bookingUrl
-                  ? "Book a free 30-minute strategy call. We'll map out exactly what AI agents can do for your specific workflow."
-                  : "Tell us about your workflow and we'll follow up with the right automation recommendation for your business."}
+                  ? "Book a free strategy call and we'll map the right mix of AI, handoff rules, and integrations for your workflow."
+                  : "Tell us where leads or operations are stalling, and we'll follow up with the best-fit automation path for your business."}
               </p>
               <Button
                 onClick={() => navigateToHref(siteConfig.primaryCtaHref)}

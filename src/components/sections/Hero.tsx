@@ -20,7 +20,7 @@ const chatMessages = [
 const stats = [
   { value: '10+', label: 'Years' },
   { value: '200+', label: 'Projects' },
-  { value: '24/7', label: 'AI Support' },
+  { value: 'Toronto', label: 'Based' },
 ]
 
 const containerVariants = {
@@ -82,7 +82,7 @@ export default function Hero() {
             <motion.div variants={itemVariants}>
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium text-gray-300 border border-white/10 bg-white/5 mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Toronto's AI-Powered Web Agency
+                Toronto-based. Senior-led. Built to earn trust.
               </span>
             </motion.div>
 
@@ -103,7 +103,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-gray-400 text-lg leading-relaxed mb-8 max-w-lg"
             >
-              We design and build high-performance digital products for Toronto businesses — from custom websites to fully autonomous AI agents that work while you sleep.
+              We design high-trust websites, conversion-focused apps, and AI workflows for Toronto businesses that need a sharper first impression and better follow-through after the click.
             </motion.p>
 
             {/* CTAs */}
@@ -179,7 +179,7 @@ export default function Hero() {
                   </div>
                 </div>
                 <div className="text-xs text-gray-500 border border-white/10 rounded-full px-2.5 py-1 bg-white/5">
-                  openclaw.ai
+                  Lead intake demo
                 </div>
               </div>
 
@@ -235,7 +235,7 @@ export default function Hero() {
               >
                 <CheckCircle2 size={13} className="text-brand-light" />
                 <span className="text-xs text-gray-400">
-                  Powered by <span className="text-brand-light font-medium">OpenClaw</span>
+                  Built to feel helpful, fast, and on-brand
                 </span>
               </div>
             </div>

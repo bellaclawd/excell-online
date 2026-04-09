@@ -8,26 +8,26 @@ import { navigateToHref, scrollToHash } from '../../utils/navigation'
 const values = [
   {
     icon: ShieldCheck,
-    title: 'Built on Trust',
-    description: 'No surprise invoices, no scope creep, no excuses. Full transparency from kickoff to launch.',
+    title: 'Direct Builder Access',
+    description: 'You work directly with the people shaping the strategy, design, and build - not a handoff chain.',
     number: '01',
   },
   {
     icon: Layers3,
-    title: 'Full-Stack Capability',
-    description: 'Design, development, AI, and SEO — all under one roof, all aligned to one goal.',
+    title: 'Trust-First Design',
+    description: 'We obsess over hierarchy, proof, clarity, and tone so your site earns confidence quickly.',
     number: '02',
   },
   {
     icon: Zap,
-    title: 'Speed & Quality',
-    description: 'We move fast without cutting corners. Tight deadlines are how we stay sharp.',
+    title: 'Senior-Led Execution',
+    description: 'Fewer layers, tighter feedback loops, and faster decisions without sacrificing polish.',
     number: '03',
   },
   {
     icon: MapPin,
-    title: 'Proudly Toronto',
-    description: 'We understand the GTA market. Local knowledge, global-quality execution.',
+    title: 'Built for Real Buying Decisions',
+    description: 'The goal is not just a prettier site. It is a clearer offer, better trust signals, and stronger next actions.',
     number: '04',
   },
 ]
@@ -45,7 +45,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <SectionBadge className="mb-5">About Us</SectionBadge>
+            <SectionBadge className="mb-5">Our Approach</SectionBadge>
             <h2 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-3">
               Built in Toronto.
               <br />
@@ -53,13 +53,13 @@ export default function About() {
             </h2>
             <div className="space-y-5 mt-6 text-gray-400 leading-relaxed">
               <p>
-                Excell Online started with a simple belief: Toronto businesses deserve agency-quality websites without agency-level nonsense. No bloated retainers, no offshore handoffs, no mystery billing. Just great work, delivered on time.
+                Excell Online is for businesses that want a sharper first impression, cleaner trust signals, and a more direct path from visitor to lead. The work spans websites, apps, and AI-supported workflows, but the standard is the same every time: make it feel premium and make it easier to act.
               </p>
               <p>
-                Over the past decade, we've helped restaurants, law firms, real estate companies, and tech startups build digital products that actually move the needle. Every client gets senior-level attention from day one.
+                The strongest projects are the ones where design taste and business clarity work together. That means better hierarchy, stronger proof, clearer offers, and fewer places for visitors to hesitate.
               </p>
               <p>
-                Today, we're leading the charge on AI-powered business tools for the GTA market — deploying autonomous AI agents for small businesses that want to operate smarter without hiring more staff.
+                We still care about the build quality underneath it all, but the end goal is simple: help serious businesses look trustworthy, feel current, and convert with less friction.
               </p>
             </div>
             <div className="flex flex-wrap gap-4 mt-8">

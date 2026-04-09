@@ -79,7 +79,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Logo />
             <p className="mt-4 text-sm text-gray-400 leading-relaxed max-w-[220px]">
-              Toronto's AI-powered web agency. We build digital products that perform.
+              Toronto-based digital partner focused on trust, clarity, and high-performing web experiences.
             </p>
             {siteConfig.socialLinks.length > 0 && (
               <div className="mt-6 flex items-center gap-3">
@@ -164,11 +164,11 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-gray-500">
             © 2026 {siteConfig.businessName}. All rights reserved.
           </p>
-          <p className="text-xs text-gray-600">
-            Built with ❤️ in Toronto.
+          <p className="text-xs text-gray-500">
+            Designed and built in Toronto.
           </p>
         </div>
       </div>

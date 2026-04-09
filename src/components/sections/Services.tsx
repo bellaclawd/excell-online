@@ -19,8 +19,8 @@ const aiBullets = [
   'Customer support agents running 24/7',
   'Workflow automation and scheduling',
   'CRM, calendar, and ops integrations',
-  'Custom agent behavior for your business',
-  'Deployed via OpenClaw & Hermes',
+  'Human handoff when a real person is needed',
+  'Automation designed around your actual workflow',
 ]
 
 const containerVariants = {
@@ -51,7 +51,7 @@ export default function Services() {
             <span className="text-gradient">Win Online</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-xl">
-            From your first website to full AI-powered automation — we cover every layer of your digital presence.
+            A senior-led mix of strategy, design, development, and automation for businesses that need trust, clarity, and measurable follow-through.
           </p>
         </motion.div>
 
@@ -140,13 +140,13 @@ export default function Services() {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-heading font-bold text-white text-2xl">AI Agents & Automation</h3>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-brand bg-brand/10 border border-brand/20 px-2 py-0.5 rounded-full">🔥 Hottest</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-brand bg-brand/10 border border-brand/20 px-2 py-0.5 rounded-full">Specialty</span>
                   </div>
-                  <p className="text-gray-400 text-sm">Autonomous agents that run your business ops 24/7</p>
+                  <p className="text-gray-400 text-sm">Automation designed around the work your team repeats every day</p>
                 </div>
               </div>
               <p className="text-gray-400 leading-relaxed mb-6 max-w-2xl">
-                AI agents go beyond chatbots — they take real action. Book appointments, qualify leads, send emails, update your CRM, and handle customer support without a human in the loop. Powered by OpenClaw and Hermes.
+                AI agents go beyond chatbots. They qualify leads, route requests, send follow-ups, update your systems, and keep repetitive work moving without turning your website into a gimmick.
               </p>
               <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
                 {aiBullets.map((bullet) => (

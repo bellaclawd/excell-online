@@ -221,14 +221,15 @@ export default function Contact() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14 text-center"
         >
-          <SectionBadge className="mb-4">Let's Build</SectionBadge>
+          <SectionBadge className="mb-4">Start a Project</SectionBadge>
           <h2 className="font-heading font-extrabold text-5xl sm:text-6xl lg:text-7xl text-white mb-4 leading-[1.05]">
-            Ready to Build
+            Ready for a
             <br />
-            <span className="text-gradient">Something Incredible?</span>
+            <span className="text-gradient">Clearer Next Step?</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-lg mx-auto">
-            Tell us what you're building. We'll follow up with the best next step for your project.
+            Tell us where the site, product, or workflow needs to improve. We&apos;ll follow up
+            with the clearest next step for your project.
           </p>
         </motion.div>
 

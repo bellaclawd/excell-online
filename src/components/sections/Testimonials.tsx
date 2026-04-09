@@ -22,11 +22,15 @@ export default function Testimonials() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14"
         >
-          <SectionBadge className="mb-4">Client Stories</SectionBadge>
+          <SectionBadge className="mb-4">Client Feedback</SectionBadge>
           <h2 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-4">
-            Toronto Businesses{' '}
-            <span className="text-gradient">Love Working With Us</span>
+            What Clients Say{' '}
+            <span className="text-gradient">After Launch</span>
           </h2>
+          <p className="text-gray-400 text-lg max-w-2xl">
+            Named client feedback across hospitality, e-commerce, legal, property, and SaaS.
+            Different business models, same outcome: stronger trust and less friction after the click.
+          </p>
         </motion.div>
 
         {/* Featured testimonial card */}
@@ -70,6 +74,15 @@ export default function Testimonials() {
                 >
                   {current.highlight}
                 </span>
+
+                <div className="flex flex-wrap gap-2 mb-5">
+                  <span className="px-2.5 py-1 rounded-full text-xs text-gray-200 border border-white/12 bg-white/[0.04]">
+                    {current.industry}
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full text-xs text-gray-200 border border-white/12 bg-white/[0.04]">
+                    {current.engagement}
+                  </span>
+                </div>
 
                 {/* Quote */}
                 <blockquote className="text-white text-lg sm:text-xl leading-relaxed mb-8 font-medium">

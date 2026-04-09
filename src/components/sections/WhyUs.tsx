@@ -4,33 +4,33 @@ import SectionBadge from '../ui/SectionBadge'
 const pillars = [
   {
     number: '01',
-    title: 'Built on Trust',
-    description: 'We work with full transparency. No surprise invoices, no scope creep, no excuses.',
+    title: 'Strategy Before Surface Polish',
+    description: 'Offer clarity, hierarchy, proof, and next-step friction get solved before visual flourishes take over.',
   },
   {
     number: '02',
-    title: 'Full-Stack Capability',
-    description: 'Design, development, AI, and SEO — all under one roof, all aligned to one goal.',
+    title: 'Same-Team Design + Build',
+    description: 'The people shaping the interface stay close to the implementation, which keeps quality tighter.',
   },
   {
     number: '03',
-    title: 'Speed & Quality',
-    description: 'We move fast without cutting corners. Tight deadlines are how we stay sharp.',
+    title: 'Automation With Restraint',
+    description: 'AI only appears where it removes friction, speeds up response time, or saves your team repetitive work.',
   },
   {
     number: '04',
-    title: 'Proudly Toronto',
-    description: 'We understand the GTA market. Local knowledge, global-quality execution.',
+    title: 'Clean Ownership After Launch',
+    description: 'You leave with a site, assets, and systems you can actually control once the project goes live.',
   },
 ]
 
 const differentiators = [
-  'Direct access to the people building the work',
-  'Performance-first development, not just pretty comps',
-  'AI systems positioned around real business outcomes',
-  'Transparent scope and cleaner project execution',
-  'You own the code, assets, and final build',
-  'Support after launch instead of disappearing at handoff',
+  'Live work on the homepage instead of placeholder mockups',
+  'Named client stories across multiple industries',
+  'Direct communication that keeps decisions fast and specific',
+  'Copy, hierarchy, design, and conversion thinking shaped together',
+  'Performance and responsiveness treated as product quality',
+  'Post-launch refinement still possible after handoff',
 ]
 
 export default function WhyUs() {
@@ -44,9 +44,9 @@ export default function WhyUs() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14"
         >
-          <SectionBadge className="mb-4">Why Choose Us</SectionBadge>
+          <SectionBadge className="mb-4">Why It Lands</SectionBadge>
           <h2 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-4">
-            Why Toronto Businesses
+            Why Serious Businesses
             <br />
             <span className="text-gradient">Choose Excell Online</span>
           </h2>
@@ -69,11 +69,11 @@ export default function WhyUs() {
               <h3 className="font-heading font-bold text-white text-3xl sm:text-4xl leading-tight mb-4">
                 Premium execution,
                 <br />
-                <span className="text-gradient">without agency nonsense.</span>
+                <span className="text-gradient">without agency theater.</span>
               </h3>
               <p className="text-gray-400 leading-relaxed text-base sm:text-lg">
-                Excell Online is built for businesses that want a serious online presence, stronger systems,
-                and a cleaner path from visitor to customer.
+                The best projects feel stronger because strategy, proof, copy, and build quality
+                are all pulling in the same direction before the design gets flashy.
               </p>
             </div>
 
@@ -107,7 +107,7 @@ export default function WhyUs() {
               border: '1px solid rgba(255,255,255,0.07)',
             }}
           >
-            <div className="text-[11px] uppercase tracking-[0.32em] text-gray-400 font-semibold mb-6">What Makes It Credible</div>
+            <div className="text-[11px] uppercase tracking-[0.32em] text-gray-400 font-semibold mb-6">What Keeps It Credible</div>
             <div className="space-y-4">
               {differentiators.map((item, i) => (
                 <div
