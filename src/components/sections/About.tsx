@@ -1,124 +1,189 @@
 import { motion } from 'framer-motion'
-import { ShieldCheck, Layers3, Zap, MapPin, ArrowRight } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Gauge, Handshake, Sparkles, XCircle } from 'lucide-react'
 import SectionBadge from '../ui/SectionBadge'
 import Button from '../ui/Button'
 import { siteConfig } from '../../config/site'
 import { navigateToHref, scrollToHash } from '../../utils/navigation'
 
-const values = [
+const bestFit = [
+  'Established businesses that have outgrown a generic or outdated site',
+  'Founders who care about trust, tone, and how the brand feels in the first 10 seconds',
+  'Teams with a real offer and real proof that needs sharper presentation',
+  'Projects where fast decisions and direct communication matter',
+]
+
+const notIdeal = [
+  'Anyone shopping for the cheapest possible build with no room for strategy',
+  'Projects looking for trend-heavy AI gimmicks without workflow value',
+  'Engagements that require heavy stakeholder churn for simple decisions',
+  'Businesses that are not ready to supply content, proof, or a clear owner',
+]
+
+const principles = [
   {
-    icon: ShieldCheck,
-    title: 'Direct Builder Access',
-    description: 'You work directly with the people shaping the strategy, design, and build - not a handoff chain.',
-    number: '01',
+    icon: Handshake,
+    title: 'Direct Collaboration',
+    description: 'Fewer handoffs, faster answers, and tighter quality from concept to launch.',
   },
   {
-    icon: Layers3,
-    title: 'Trust-First Design',
-    description: 'We obsess over hierarchy, proof, clarity, and tone so your site earns confidence quickly.',
-    number: '02',
+    icon: Gauge,
+    title: 'Clarity Before Complexity',
+    description: 'Offer, hierarchy, proof, and conversion friction get solved before anything flashy.',
   },
   {
-    icon: Zap,
-    title: 'Senior-Led Execution',
-    description: 'Fewer layers, tighter feedback loops, and faster decisions without sacrificing polish.',
-    number: '03',
-  },
-  {
-    icon: MapPin,
-    title: 'Built for Real Buying Decisions',
-    description: 'The goal is not just a prettier site. It is a clearer offer, better trust signals, and stronger next actions.',
-    number: '04',
+    icon: Sparkles,
+    title: 'Polish With a Purpose',
+    description: 'The goal is not just to look better. It is to feel more trustworthy and convert more cleanly.',
   },
 ]
 
 export default function About() {
   return (
-    <section id="about" className="py-24" style={{ background: '#080808' }}>
+    <section id="about" className="py-24" style={{ background: '#0b0b0b' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-          {/* Left column */}
+        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-12 items-start">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <SectionBadge className="mb-5">Our Approach</SectionBadge>
-            <h2 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-3">
-              Built in Toronto.
+            <SectionBadge className="mb-5">Who We&apos;re Best For</SectionBadge>
+            <h2 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-4 leading-tight">
+              Best for businesses that need
               <br />
-              <span className="text-gradient">Built to Last.</span>
+              <span className="text-gradient">more than a prettier homepage.</span>
             </h2>
-            <div className="space-y-5 mt-6 text-gray-400 leading-relaxed">
+            <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+              Excell Online is strongest when a business already has something real to sell and
+              needs the site, product, or workflow to communicate it with more confidence.
+            </p>
+            <div className="space-y-4 mt-6 text-gray-400 leading-relaxed max-w-xl">
               <p>
-                Excell Online is for businesses that want a sharper first impression, cleaner trust signals, and a more direct path from visitor to lead. The work spans websites, apps, and AI-supported workflows, but the standard is the same every time: make it feel premium and make it easier to act.
+                That usually means clearer positioning, stronger proof, cleaner calls to action,
+                and fewer places where a serious buyer starts to hesitate.
               </p>
               <p>
-                The strongest projects are the ones where design taste and business clarity work together. That means better hierarchy, stronger proof, clearer offers, and fewer places for visitors to hesitate.
-              </p>
-              <p>
-                We still care about the build quality underneath it all, but the end goal is simple: help serious businesses look trustworthy, feel current, and convert with less friction.
+                The work can include websites, apps, and AI-supported operations, but the common
+                thread is always the same: make the experience feel sharper, more trustworthy, and
+                easier to act on.
               </p>
             </div>
+
+            <div className="flex flex-wrap gap-2 mt-8">
+              {['Toronto-based', 'Senior-led', 'Trust-first', 'Direct communication'].map((item) => (
+                <span
+                  key={item}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-300 border border-white/10 bg-white/[0.04]"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+
             <div className="flex flex-wrap gap-4 mt-8">
               <Button onClick={() => navigateToHref(siteConfig.primaryCtaHref)}>
                 {siteConfig.primaryCtaLabel}
                 <ArrowRight size={15} />
               </Button>
-              <Button variant="ghost" onClick={() => scrollToHash('#portfolio')}>
-                See Our Work
+              <Button variant="ghost" onClick={() => scrollToHash('#faq')}>
+                Read Common Questions
               </Button>
             </div>
           </motion.div>
 
-          {/* Right column — value cards with large icons */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-2 gap-4"
+            transition={{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-4"
           >
-            {values.map(({ icon: Icon, title, description, number }, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative overflow-hidden p-6 rounded-2xl cursor-default"
-                style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)' }}
-                whileHover={{
-                  borderColor: 'rgba(229,19,45,0.35)',
-                  boxShadow: '0 0 36px rgba(229,19,45,0.13)',
-                  transition: { duration: 0.2 },
+            <div className="grid md:grid-cols-2 gap-4">
+              <div
+                className="rounded-2xl p-6"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.07)',
                 }}
               >
-                {/* Ghost number watermark */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                    <CheckCircle2 size={18} className="text-emerald-400" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] uppercase tracking-[0.28em] text-emerald-400 font-semibold">
+                      Great Fit
+                    </div>
+                    <h3 className="font-heading font-bold text-white text-xl mt-2">
+                      When this tends to work best
+                    </h3>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {bestFit.map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-xl px-4 py-3 text-sm text-gray-300 leading-relaxed border border-white/8 bg-white/[0.03]"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div
+                className="rounded-2xl p-6"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                    <XCircle size={18} className="text-gray-400" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] uppercase tracking-[0.28em] text-gray-400 font-semibold">
+                      Probably Not
+                    </div>
+                    <h3 className="font-heading font-bold text-white text-xl mt-2">
+                      When another route makes more sense
+                    </h3>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {notIdeal.map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-xl px-4 py-3 text-sm text-gray-300 leading-relaxed border border-white/8 bg-white/[0.03]"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-3 gap-4">
+              {principles.map(({ icon: Icon, title, description }) => (
                 <div
-                  className="absolute -top-2 -right-1 font-heading font-black text-7xl leading-none select-none pointer-events-none"
-                  style={{ color: 'rgba(229,19,45,0.06)' }}
+                  key={title}
+                  className="rounded-2xl p-5"
+                  style={{
+                    background: '#141414',
+                    border: '1px solid rgba(255,255,255,0.07)',
+                  }}
                 >
-                  {number}
+                  <div className="w-10 h-10 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center mb-4">
+                    <Icon size={18} className="text-brand" />
+                  </div>
+                  <h3 className="font-heading font-semibold text-white text-sm mb-2">{title}</h3>
+                  <p className="text-xs text-gray-400 leading-relaxed">{description}</p>
                 </div>
-
-                {/* Large icon — no box, just the icon with a glow */}
-                <div className="relative mb-5">
-                  <Icon
-                    size={44}
-                    className="text-brand drop-shadow-[0_0_12px_rgba(229,19,45,0.5)]"
-                    strokeWidth={1.5}
-                  />
-                </div>
-
-                <h3 className="font-heading font-bold text-white text-sm mb-2">{title}</h3>
-                <p className="text-gray-400 text-xs leading-relaxed">{description}</p>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </motion.div>
-
         </div>
       </div>
     </section>

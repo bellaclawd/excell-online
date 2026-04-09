@@ -7,37 +7,37 @@ export interface FAQItem {
 export const faqItems: FAQItem[] = [
   {
     id: '1',
-    question: 'How much does a website cost?',
-    answer: 'Every project is scoped individually based on your requirements. A brochure website starts around $3,500, while full custom web apps and AI-integrated platforms range from $8,000 to $50,000+. We provide a detailed proposal with transparent line-item pricing before any work begins.',
+    question: 'What happens after I reach out?',
+    answer: 'You get a real reply within 1 business day. From there, we usually start with a short conversation or a focused project review so we can understand the offer, the current friction, and the clearest next step before talking scope in detail.',
   },
   {
     id: '2',
-    question: 'How long does a project take?',
-    answer: 'A standard website takes 4–8 weeks from kickoff to launch. Complex web applications and AI integrations typically run 8–16 weeks. We set clear milestones upfront and hit them — no vague timelines.',
+    question: 'What kinds of businesses are the best fit?',
+    answer: 'The best fit is usually an established business that already has something real to sell and wants a stronger first impression, clearer trust signals, and a cleaner conversion path. We work especially well with teams that value direct communication and can make decisions without heavy internal churn.',
   },
   {
     id: '3',
-    question: 'Do you work with businesses outside Toronto?',
-    answer: 'Absolutely. While we\'re based in Toronto and specialize in the GTA market, we work with clients across Canada and internationally. All our processes are remote-friendly, and we\'re comfortable working across time zones.',
+    question: 'How are projects scoped and priced?',
+    answer: 'Everything is scoped individually. Simpler marketing sites typically start around the lower end of the range shown in the contact form, while more custom builds, web apps, and automation work move upward depending on complexity. We aim to make scope, tradeoffs, and next steps clear before anything is approved.',
   },
   {
     id: '4',
-    question: 'What exactly are AI agents and do I need them?',
-    answer: 'AI agents are autonomous software programs that handle tasks like answering customer inquiries, qualifying leads, booking appointments, and processing workflows — 24/7, without human input. If your business handles repetitive communication or data tasks, an AI agent can save you significant time and money.',
+    question: 'Do I need AI agents to work with you?',
+    answer: 'No. AI is a specialty, not a requirement. Many projects are simply about making the site, proof, and conversion path stronger. Automation only makes sense when it removes repetitive work, improves response time, or helps the business operate more smoothly.',
   },
   {
     id: '5',
-    question: 'Who owns the website when it\'s done?',
-    answer: 'You do. 100%. Once the project is paid in full, all code, designs, and assets are transferred to you. We don\'t hold your website hostage or lock you into proprietary systems you can\'t access.',
+    question: 'Can you improve an existing website instead of rebuilding everything?',
+    answer: 'Yes. Some projects need a full reset, but plenty just need sharper hierarchy, better proof, cleaner messaging, faster performance, or more credible contact flow. We can help identify what is worth keeping before recommending a larger rebuild.',
   },
   {
     id: '6',
-    question: 'Can you redesign my existing website?',
-    answer: 'Yes. We handle redesigns frequently — whether you need a visual refresh, a platform migration, or a full architectural rebuild. We\'ll audit your current site first and give you an honest assessment of what\'s worth keeping.',
+    question: 'How long does a project usually take?',
+    answer: 'A focused marketing site often lands in the 4 to 8 week range, while more custom products or automation-heavy work can extend beyond that. We prefer setting milestones and approvals early so the timeline stays clean instead of vague.',
   },
   {
     id: '7',
-    question: 'Do you offer ongoing support and maintenance?',
-    answer: 'Yes. We offer monthly maintenance plans that include updates, security patches, content changes, and priority support. Many clients also retain us on a monthly basis for ongoing development and marketing work.',
+    question: 'What happens after launch?',
+    answer: 'You keep ownership of the final work, and we can stay involved for support, refinement, or ongoing development if it makes sense. The goal is to launch cleanly and leave you with something maintainable, not create dependence on us.',
   },
 ]
