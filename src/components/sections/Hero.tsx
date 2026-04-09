@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Bot, CheckCircle2 } from 'lucide-react'
 import Button from '../ui/Button'
+import { siteConfig } from '../../config/site'
+import { navigateToHref, scrollToHash } from '../../utils/navigation'
 
 const floatingBadges = [
   { label: 'Web Design ✓', style: { top: '12%', left: '-12%' } },
@@ -31,11 +33,6 @@ const itemVariants = {
 }
 
 export default function Hero() {
-  const handleScroll = (href: string) => {
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
-
   return (
     <section
       id="hero"
@@ -111,11 +108,11 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-10">
-              <Button size="lg" onClick={() => handleScroll('#contact')}>
-                Book a Call
+              <Button size="lg" onClick={() => navigateToHref(siteConfig.primaryCtaHref)}>
+                {siteConfig.primaryCtaLabel}
                 <ArrowRight size={16} />
               </Button>
-              <Button variant="ghost" size="lg" onClick={() => handleScroll('#portfolio')}>
+              <Button variant="ghost" size="lg" onClick={() => scrollToHash('#portfolio')}>
                 See Our Work
               </Button>
             </motion.div>

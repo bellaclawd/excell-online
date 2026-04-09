@@ -17,6 +17,12 @@
     scroll-behavior: smooth;
   }
 
+  section[id],
+  footer[id],
+  main[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
   body {
     background-color: #080808;
     color: #F5F5F5;

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import Button from '../ui/Button'
+import { siteConfig } from '../../config/site'
+import { navigateToHref, scrollToHash } from '../../utils/navigation'
 
 const navLinks = [
   { label: 'Services', href: '#services' },
@@ -13,7 +15,14 @@ const navLinks = [
 
 function Logo() {
   return (
-    <a href="#" className="flex items-center gap-2.5">
+    <a
+      href="#hero"
+      onClick={(event) => {
+        event.preventDefault()
+        scrollToHash('#hero')
+      }}
+      className="flex items-center gap-2.5"
+    >
       <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -66,8 +75,7 @@ export default function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false)
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    navigateToHref(href)
   }
 
   return (
@@ -93,6 +101,7 @@ export default function Navbar() {
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
+                  aria-current={activeSection === link.href ? 'page' : undefined}
                   className={`text-sm transition-colors duration-200 font-medium ${
                     activeSection === link.href
                       ? 'text-white'
@@ -105,8 +114,8 @@ export default function Navbar() {
             </div>
 
             <div className="hidden md:block">
-              <Button onClick={() => handleNavClick('#contact')} size="sm">
-                Book a Call
+              <Button onClick={() => navigateToHref(siteConfig.primaryCtaHref)} size="sm">
+                {siteConfig.primaryCtaLabel}
               </Button>
             </div>
 
@@ -144,8 +153,14 @@ export default function Navbar() {
                 </button>
               ))}
               <div className="pt-2 pb-1">
-                <Button onClick={() => handleNavClick('#contact')} className="w-full justify-center">
-                  Book a Call
+                <Button
+                  onClick={() => {
+                    setMobileOpen(false)
+                    navigateToHref(siteConfig.primaryCtaHref)
+                  }}
+                  className="w-full justify-center"
+                >
+                  {siteConfig.primaryCtaLabel}
                 </Button>
               </div>
             </div>

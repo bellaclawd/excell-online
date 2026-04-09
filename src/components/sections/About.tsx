@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import { ShieldCheck, Layers3, Zap, MapPin, ArrowRight } from 'lucide-react'
 import SectionBadge from '../ui/SectionBadge'
 import Button from '../ui/Button'
+import { siteConfig } from '../../config/site'
+import { navigateToHref, scrollToHash } from '../../utils/navigation'
 
 const values = [
   {
@@ -61,11 +63,11 @@ export default function About() {
               </p>
             </div>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Button onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}>
-                Work With Us
+              <Button onClick={() => navigateToHref(siteConfig.primaryCtaHref)}>
+                {siteConfig.primaryCtaLabel}
                 <ArrowRight size={15} />
               </Button>
-              <Button variant="ghost" onClick={() => document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button variant="ghost" onClick={() => scrollToHash('#portfolio')}>
                 See Our Work
               </Button>
             </div>

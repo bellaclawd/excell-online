@@ -3,37 +3,7 @@ import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone, Check, ArrowRight } from 'lucide-react'
 import SectionBadge from '../ui/SectionBadge'
 import Button from '../ui/Button'
-
-const contactInfo = [
-  {
-    icon: Phone,
-    label: 'Phone',
-    value: '(416) 555-0192',
-    href: 'tel:+14165550192',
-    isAction: false,
-  },
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'hello@excellonline.ca',
-    href: 'mailto:hello@excellonline.ca',
-    isAction: false,
-  },
-  {
-    icon: MapPin,
-    label: 'Location',
-    value: 'Toronto, Ontario, Canada',
-    href: null,
-    isAction: false,
-  },
-]
-
-const expectations = [
-  'Response within 1 business day',
-  'Free 30-minute strategy call',
-  'Detailed proposal with fixed pricing',
-  'No obligation — ever',
-]
+import { contactExpectations, siteConfig } from '../../config/site'
 
 const services = [
   'Web Design & Development',
@@ -47,9 +17,9 @@ const services = [
 
 const budgets = [
   'Under $5,000',
-  '$5,000 – $10,000',
-  '$10,000 – $25,000',
-  '$25,000 – $50,000',
+  '$5,000 - $10,000',
+  '$10,000 - $25,000',
+  '$25,000 - $50,000',
   '$50,000+',
 ]
 
@@ -60,30 +30,158 @@ interface FormState {
   service: string
   budget: string
   message: string
+  company: string
+}
+
+type SubmitStatus = 'idle' | 'submitting' | 'submitted' | 'fallback' | 'error'
+
+type SubmitError = Error & {
+  fallback?: boolean
+}
+
+const initialFormState: FormState = {
+  name: '',
+  email: '',
+  phone: '',
+  service: '',
+  budget: '',
+  message: '',
+  company: '',
+}
+
+function makeSubmitError(message: string, fallback = false): SubmitError {
+  const error = new Error(message) as SubmitError
+  error.fallback = fallback
+  return error
+}
+
+function buildMailtoHref(form: FormState) {
+  const subject = encodeURIComponent(
+    `${siteConfig.businessName} project inquiry${form.service ? ` - ${form.service}` : ''}`,
+  )
+  const body = encodeURIComponent(
+    [
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone || 'Not provided'}`,
+      `Service: ${form.service || 'Not selected'}`,
+      `Budget: ${form.budget || 'Not selected'}`,
+      '',
+      'Project details:',
+      form.message,
+    ].join('\n'),
+  )
+
+  return `${siteConfig.emailHref}?subject=${subject}&body=${body}`
+}
+
+async function submitToEndpoint(form: FormState) {
+  let response: Response
+
+  try {
+    response = await fetch(siteConfig.contactEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        ...form,
+        submittedAt: new Date().toISOString(),
+        source: window.location.href,
+      }),
+    })
+  } catch {
+    throw makeSubmitError('Direct submission is unavailable right now.', true)
+  }
+
+  const responseText = await response.text()
+  const contentType = response.headers.get('content-type') || ''
+
+  if (!contentType.includes('application/json')) {
+    throw makeSubmitError('This environment cannot submit directly.', true)
+  }
+
+  let payload: { ok?: boolean; error?: string; errors?: Record<string, string> }
+
+  try {
+    payload = JSON.parse(responseText)
+  } catch {
+    throw makeSubmitError('The contact endpoint returned an invalid response.', true)
+  }
+
+  if (!response.ok || !payload.ok) {
+    const fieldErrors = payload.errors ? Object.values(payload.errors).join(' ') : ''
+    throw makeSubmitError(payload.error || fieldErrors || 'We could not send your message.')
+  }
 }
 
 export default function Contact() {
-  const [form, setForm] = useState<FormState>({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    budget: '',
-    message: '',
-  })
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [form, setForm] = useState<FormState>(initialFormState)
+  const [status, setStatus] = useState<SubmitStatus>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  const contactInfo = [
+    ...(siteConfig.phone
+      ? [
+          {
+            icon: Phone,
+            label: 'Phone',
+            value: siteConfig.phone,
+            href: siteConfig.phoneHref,
+          },
+        ]
+      : []),
+    {
+      icon: Mail,
+      label: 'Email',
+      value: siteConfig.email,
+      href: siteConfig.emailHref,
+    },
+    {
+      icon: MapPin,
+      label: 'Location',
+      value: siteConfig.location,
+      href: '',
+    },
+  ]
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, [event.target.name]: event.target.value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
-    setLoading(false)
-    setSubmitted(true)
+  const resetForm = () => {
+    setForm(initialFormState)
+    setStatus('idle')
+    setErrorMessage('')
+  }
+
+  const handleFallback = () => {
+    window.location.href = buildMailtoHref(form)
+  }
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setStatus('submitting')
+    setErrorMessage('')
+
+    try {
+      await submitToEndpoint(form)
+      setStatus('submitted')
+      setForm(initialFormState)
+      return
+    } catch (error) {
+      const submitError = error as SubmitError
+
+      if (submitError.fallback) {
+        handleFallback()
+        setStatus('fallback')
+        return
+      }
+
+      setErrorMessage(submitError.message || 'We could not send your message.')
+      setStatus('error')
+    }
   }
 
   const inputClass = [
@@ -102,7 +200,6 @@ export default function Contact() {
       className="py-24 relative overflow-hidden"
       style={{ background: '#050505' }}
     >
-      {/* Red radial glow top center */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -117,7 +214,6 @@ export default function Contact() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -132,12 +228,11 @@ export default function Contact() {
             <span className="text-gradient">Something Incredible?</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-lg mx-auto">
-            Tell us what you're building. We'll tell you exactly how we can help.
+            Tell us what you're building. We'll follow up with the best next step for your project.
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Left: Contact info */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -145,7 +240,7 @@ export default function Contact() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="space-y-3 mb-8">
-              {contactInfo.map(({ icon: Icon, label, value, href, isAction }) => (
+              {contactInfo.map(({ icon: Icon, label, value, href }) => (
                 <div
                   key={label}
                   className="flex items-center gap-4 p-4 rounded-xl"
@@ -159,8 +254,7 @@ export default function Contact() {
                     {href ? (
                       <a
                         href={href}
-                        className={`text-sm font-medium ${isAction ? 'text-brand-light hover:text-brand' : 'text-white hover:text-brand-light'} transition-colors`}
-                        onClick={isAction ? (e) => { e.preventDefault() } : undefined}
+                        className="text-sm font-medium text-white hover:text-brand-light transition-colors"
                       >
                         {value}
                       </a>
@@ -172,50 +266,69 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* What to expect */}
             <div
               className="p-6 rounded-xl"
               style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)' }}
             >
               <h3 className="font-heading font-semibold text-white text-sm mb-4">What to Expect</h3>
               <ul className="space-y-3">
-                {expectations.map((exp) => (
-                  <li key={exp} className="flex items-center gap-3 text-sm text-gray-400">
+                {contactExpectations.map((expectation) => (
+                  <li key={expectation} className="flex items-center gap-3 text-sm text-gray-400">
                     <div className="w-4 h-4 rounded-full bg-brand/15 border border-brand/30 flex items-center justify-center shrink-0">
                       <Check size={10} className="text-brand" />
                     </div>
-                    {exp}
+                    {expectation}
                   </li>
                 ))}
               </ul>
             </div>
           </motion.div>
 
-          {/* Right: Form */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            {submitted ? (
+            {status === 'submitted' || status === 'fallback' || status === 'error' ? (
               <div
-                className="h-full min-h-[400px] flex flex-col items-center justify-center text-center p-8 rounded-2xl"
+                aria-live="polite"
+                className="h-full min-h-[420px] flex flex-col items-center justify-center text-center p-8 rounded-2xl"
                 style={{
                   background: '#161616',
-                  border: '1px solid rgba(229,19,45,0.25)',
-                  boxShadow: '0 0 40px rgba(229,19,45,0.1)',
+                  border: `1px solid ${
+                    status === 'error' ? 'rgba(255,255,255,0.12)' : 'rgba(229,19,45,0.25)'
+                  }`,
+                  boxShadow: status === 'error' ? 'none' : '0 0 40px rgba(229,19,45,0.1)',
                 }}
               >
                 <div className="w-16 h-16 rounded-full bg-brand/15 border border-brand/30 flex items-center justify-center mb-6">
                   <Check size={28} className="text-brand" />
                 </div>
                 <h3 className="font-heading font-bold text-white text-2xl mb-3">
-                  Message Received!
+                  {status === 'submitted' && 'Message sent.'}
+                  {status === 'fallback' && 'Your email app should open now.'}
+                  {status === 'error' && 'We could not send your message.'}
                 </h3>
-                <p className="text-gray-400 leading-relaxed max-w-sm">
-                  Thanks for reaching out. We'll review your project and get back to you within 1 business day.
+                <p className="text-gray-400 leading-relaxed max-w-sm mb-6">
+                  {status === 'submitted' &&
+                    "Thanks for reaching out. Your message was sent successfully and we'll reply within 1 business day."}
+                  {status === 'fallback' &&
+                    `Direct submission is unavailable in this environment, so we opened an email draft to ${siteConfig.email} with your project details.`}
+                  {status === 'error' &&
+                    (errorMessage || `Please email ${siteConfig.email} directly and we'll take it from there.`)}
                 </p>
+                <div className="flex flex-wrap justify-center gap-3">
+                  {status !== 'submitted' && (
+                    <Button onClick={handleFallback}>
+                      Email Us Directly
+                      <ArrowRight size={16} />
+                    </Button>
+                  )}
+                  <Button variant="ghost" onClick={resetForm}>
+                    Send Another Message
+                  </Button>
+                </div>
               </div>
             ) : (
               <form
@@ -226,13 +339,28 @@ export default function Contact() {
                   border: '1px solid rgba(255,255,255,0.07)',
                 }}
               >
+                <input
+                  type="text"
+                  name="company"
+                  value={form.company}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden="true"
+                />
+
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-gray-400 mb-1.5 font-medium">Full Name</label>
+                    <label htmlFor="contact-name" className="block text-xs text-gray-400 mb-1.5 font-medium">
+                      Full Name
+                    </label>
                     <input
+                      id="contact-name"
                       type="text"
                       name="name"
                       required
+                      autoComplete="name"
                       placeholder="Your name"
                       value={form.name}
                       onChange={handleChange}
@@ -241,11 +369,15 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-400 mb-1.5 font-medium">Email</label>
+                    <label htmlFor="contact-email" className="block text-xs text-gray-400 mb-1.5 font-medium">
+                      Email
+                    </label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
                       required
+                      autoComplete="email"
                       placeholder="you@company.com"
                       value={form.email}
                       onChange={handleChange}
@@ -255,10 +387,14 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-400 mb-1.5 font-medium">Phone (optional)</label>
+                  <label htmlFor="contact-phone" className="block text-xs text-gray-400 mb-1.5 font-medium">
+                    Phone (optional)
+                  </label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     name="phone"
+                    autoComplete="tel"
                     placeholder="Your phone number"
                     value={form.phone}
                     onChange={handleChange}
@@ -268,8 +404,11 @@ export default function Contact() {
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="relative">
-                    <label className="block text-xs text-gray-400 mb-1.5 font-medium">Service</label>
+                    <label htmlFor="contact-service" className="block text-xs text-gray-400 mb-1.5 font-medium">
+                      Service
+                    </label>
                     <select
+                      id="contact-service"
                       name="service"
                       required
                       value={form.service}
@@ -278,15 +417,18 @@ export default function Contact() {
                       style={{ ...inputStyle, appearance: 'none', paddingRight: '2.5rem' }}
                     >
                       <option value="" disabled>Select a service</option>
-                      {services.map((s) => <option key={s} value={s}>{s}</option>)}
+                      {services.map((service) => <option key={service} value={service}>{service}</option>)}
                     </select>
                     <div className="pointer-events-none absolute right-3 top-[2.15rem] text-gray-500">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </div>
                   </div>
                   <div className="relative">
-                    <label className="block text-xs text-gray-400 mb-1.5 font-medium">Budget Range</label>
+                    <label htmlFor="contact-budget" className="block text-xs text-gray-400 mb-1.5 font-medium">
+                      Budget Range
+                    </label>
                     <select
+                      id="contact-budget"
                       name="budget"
                       required
                       value={form.budget}
@@ -295,7 +437,7 @@ export default function Contact() {
                       style={{ ...inputStyle, appearance: 'none', paddingRight: '2.5rem' }}
                     >
                       <option value="" disabled>Select budget</option>
-                      {budgets.map((b) => <option key={b} value={b}>{b}</option>)}
+                      {budgets.map((budget) => <option key={budget} value={budget}>{budget}</option>)}
                     </select>
                     <div className="pointer-events-none absolute right-3 top-[2.15rem] text-gray-500">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -303,8 +445,11 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-400 mb-1.5 font-medium">Message</label>
+                  <label htmlFor="contact-message" className="block text-xs text-gray-400 mb-1.5 font-medium">
+                    Message
+                  </label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     required
                     rows={4}
@@ -317,17 +462,17 @@ export default function Contact() {
                 </div>
                 <motion.button
                   type="submit"
-                  disabled={loading}
+                  disabled={status === 'submitting'}
                   className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-lg font-semibold text-white transition-all duration-200"
                   style={{
                     background: '#E5132D',
-                    boxShadow: loading ? 'none' : '0 0 24px rgba(229,19,45,0.4)',
-                    opacity: loading ? 0.7 : 1,
+                    boxShadow: status === 'submitting' ? 'none' : '0 0 24px rgba(229,19,45,0.4)',
+                    opacity: status === 'submitting' ? 0.7 : 1,
                   }}
-                  whileHover={loading ? {} : { scale: 1.01, y: -1 }}
-                  whileTap={loading ? {} : { scale: 0.99 }}
+                  whileHover={status === 'submitting' ? {} : { scale: 1.01, y: -1 }}
+                  whileTap={status === 'submitting' ? {} : { scale: 0.99 }}
                 >
-                  {loading ? (
+                  {status === 'submitting' ? (
                     <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   ) : (
                     <>
@@ -336,6 +481,9 @@ export default function Contact() {
                     </>
                   )}
                 </motion.button>
+                <p className="text-xs text-gray-500 text-center">
+                  Prefer email? <a href={siteConfig.emailHref} className="text-gray-300 hover:text-white transition-colors">{siteConfig.email}</a>
+                </p>
               </form>
             )}
           </motion.div>

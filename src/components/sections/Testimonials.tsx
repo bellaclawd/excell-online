@@ -134,17 +134,25 @@ export default function Testimonials() {
                   <button
                     key={i}
                     onClick={() => setActive(i)}
-                    className="w-2 h-2 rounded-full transition-all duration-200"
+                    aria-label={`Show testimonial ${i + 1}`}
+                    className="w-5 h-5 rounded-full transition-all duration-200 flex items-center justify-center"
                     style={{
-                      background: i === active ? '#E5132D' : 'rgba(255,255,255,0.2)',
-                      transform: i === active ? 'scale(1.3)' : 'scale(1)',
+                      transform: i === active ? 'scale(1.1)' : 'scale(1)',
                     }}
-                  />
+                  >
+                    <span
+                      className="block w-2 h-2 rounded-full"
+                      style={{
+                        background: i === active ? '#E5132D' : 'rgba(255,255,255,0.2)',
+                      }}
+                    />
+                  </button>
                 ))}
               </div>
 
               <button
                 onClick={prev}
+                aria-label="Show previous testimonial"
                 className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200"
                 style={{ border: '1px solid rgba(255,255,255,0.1)' }}
                 onMouseEnter={(e) => {
@@ -158,6 +166,7 @@ export default function Testimonials() {
               </button>
               <button
                 onClick={next}
+                aria-label="Show next testimonial"
                 className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200"
                 style={{ border: '1px solid rgba(255,255,255,0.1)' }}
                 onMouseEnter={(e) => {

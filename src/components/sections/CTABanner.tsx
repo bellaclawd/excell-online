@@ -1,13 +1,10 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Button from '../ui/Button'
+import { siteConfig } from '../../config/site'
+import { navigateToHref } from '../../utils/navigation'
 
 export default function CTABanner() {
-  const handleScroll = () => {
-    const el = document.querySelector('#contact')
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
-
   return (
     <section
       className="relative py-20 overflow-hidden"
@@ -32,15 +29,15 @@ export default function CTABanner() {
             Like what you see?
           </h2>
           <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
-            Let's build something just as impressive for your business. Free strategy call, no strings attached.
+            Let's build something just as impressive for your business. Clear next steps, no pressure.
           </p>
           <Button
             variant="ghost"
             size="lg"
-            onClick={handleScroll}
+            onClick={() => navigateToHref(siteConfig.primaryCtaHref)}
             className="bg-white text-[#E5132D] border-white hover:bg-white/90 hover:text-[#B50E22] font-semibold"
           >
-            Start Your Project
+            {siteConfig.primaryCtaLabel}
             <ArrowRight size={16} />
           </Button>
         </motion.div>

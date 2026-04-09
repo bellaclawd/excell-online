@@ -1,8 +1,18 @@
 import { motion } from 'framer-motion'
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
+import { siteConfig } from '../../config/site'
+import { scrollToHash } from '../../utils/navigation'
 
 function Logo() {
   return (
-    <a href="#" className="flex items-center gap-2.5">
+    <a
+      href="#hero"
+      onClick={(event) => {
+        event.preventDefault()
+        scrollToHash('#hero')
+      }}
+      className="flex items-center gap-2.5"
+    >
       <svg width="28" height="24" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="footerLogoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -41,27 +51,20 @@ const serviceLinks = [
   'Mobile Apps',
 ]
 
-function ObfuscatedEmail() {
-  const codes = [115,101,118,64,101,120,99,101,108,108,111,110,108,105,110,101,46,99,97]
-  const email = codes.map(c => String.fromCharCode(c)).join('')
-  return (
-    <button
-      onClick={() => { window.location.href = 'mailto:' + email }}
-      className="hover:text-white transition-colors duration-200 cursor-pointer p-0 bg-transparent border-0 text-gray-400"
-    >
-      {email}
-    </button>
-  )
+const socialIconMap = {
+  Twitter,
+  LinkedIn: Linkedin,
+  Instagram,
+  Facebook,
 }
 
 export default function Footer() {
   const handleNav = (href: string) => {
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    scrollToHash(href)
   }
 
   return (
-    <footer style={{ background: '#050505' }}>
+    <footer id="footer" style={{ background: '#050505' }}>
       {/* Red gradient line */}
       <div
         style={{
@@ -78,6 +81,26 @@ export default function Footer() {
             <p className="mt-4 text-sm text-gray-400 leading-relaxed max-w-[220px]">
               Toronto's AI-powered web agency. We build digital products that perform.
             </p>
+            {siteConfig.socialLinks.length > 0 && (
+              <div className="mt-6 flex items-center gap-3">
+                {siteConfig.socialLinks.map((link) => {
+                  const Icon = socialIconMap[link.label as keyof typeof socialIconMap]
+
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={link.label}
+                      className="w-10 h-10 rounded-xl border border-white/15 text-gray-300 hover:text-white hover:border-white/30 transition-colors flex items-center justify-center"
+                    >
+                      <Icon size={16} />
+                    </a>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           {/* Col 2: Quick Links */}
@@ -118,9 +141,11 @@ export default function Footer() {
           <div>
             <h4 className="font-heading font-semibold text-white text-sm mb-5">Contact</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li>Toronto, Ontario, Canada</li>
+              <li>{siteConfig.location}</li>
               <li>
-                <ObfuscatedEmail />
+                <a href={siteConfig.emailHref} className="hover:text-white transition-colors duration-200">
+                  {siteConfig.email}
+                </a>
               </li>
               <li className="pt-2">
                 <motion.button
@@ -140,7 +165,7 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-600">
-            © 2026 Excell Online. All rights reserved.
+            © 2026 {siteConfig.businessName}. All rights reserved.
           </p>
           <p className="text-xs text-gray-600">
             Built with ❤️ in Toronto.

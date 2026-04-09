@@ -6,6 +6,8 @@ import {
 import SectionBadge from '../ui/SectionBadge'
 import TerminalAnimation from '../ui/TerminalAnimation'
 import Button from '../ui/Button'
+import { siteConfig } from '../../config/site'
+import { navigateToHref, scrollToHash } from '../../utils/navigation'
 
 const useCases = [
   {
@@ -189,7 +191,10 @@ export default function AISection() {
                 </ul>
                 <a
                   href="#contact"
-                  onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollToHash('#contact')
+                  }}
                   className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-white font-medium transition-colors"
                 >
                   Learn more <ArrowRight size={11} />
@@ -220,13 +225,15 @@ export default function AISection() {
                 Ready to automate your business?
               </h3>
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Book a free 30-minute strategy call. We'll map out exactly what AI agents can do for your specific workflow.
+                {siteConfig.bookingUrl
+                  ? "Book a free 30-minute strategy call. We'll map out exactly what AI agents can do for your specific workflow."
+                  : "Tell us about your workflow and we'll follow up with the right automation recommendation for your business."}
               </p>
               <Button
-                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => navigateToHref(siteConfig.primaryCtaHref)}
                 className="w-full justify-center"
               >
-                Book Free Strategy Call
+                {siteConfig.primaryCtaLabel}
                 <ArrowRight size={15} />
               </Button>
             </div>

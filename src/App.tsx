@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
@@ -12,8 +13,26 @@ import About from './components/sections/About'
 import FAQ from './components/sections/FAQ'
 import Contact from './components/sections/Contact'
 import CTABanner from './components/sections/CTABanner'
+import { scrollToHash } from './utils/navigation'
 
 export default function App() {
+  useEffect(() => {
+    if (window.location.hash) {
+      requestAnimationFrame(() => {
+        scrollToHash(window.location.hash, { behavior: 'auto', updateHash: false })
+      })
+    }
+
+    const onHashChange = () => {
+      if (window.location.hash) {
+        scrollToHash(window.location.hash, { updateHash: false })
+      }
+    }
+
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
   return (
     <div className="min-h-screen bg-[#080808] text-[#F5F5F5] overflow-x-hidden">
       <a

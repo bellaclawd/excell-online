@@ -7,6 +7,7 @@ import {
 import SectionBadge from '../ui/SectionBadge'
 import Button from '../ui/Button'
 import { services } from '../../data/services'
+import { scrollToHash } from '../../utils/navigation'
 
 const iconMap: Record<string, LucideIcon> = {
   Palette, Code2, ShoppingCart, TrendingUp,
@@ -157,7 +158,7 @@ export default function Services() {
               </ul>
             </div>
             <div className="shrink-0 pt-1">
-              <Button onClick={() => document.querySelector('#ai-agents')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button onClick={() => scrollToHash('#ai-agents')}>
                 Explore AI Agents
                 <ArrowRight size={15} />
               </Button>
