@@ -6,7 +6,7 @@ const trustCards = [
     eyebrow: 'Live Portfolio',
     title: 'Four real projects visitors can open right now',
     body: 'Instead of asking for blind trust, the homepage shows live work across SaaS, security, recreation, and home services.',
-    items: ['PoketDex', 'SecureUploads.ca', 'The Jokers Paintball', 'RenoDecks.ca'],
+    items: ['CardTrove.io', 'SecureUploads.ca', 'The Jokers Paintball', 'RenoDecks.ca'],
   },
   {
     icon: Building2,

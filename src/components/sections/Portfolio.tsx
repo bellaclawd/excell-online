@@ -7,14 +7,19 @@ import CaseStudyModal from '../ui/CaseStudyModal'
 import { portfolioItems, type PortfolioItem } from '../../data/portfolio'
 
 const CASE_STUDY_PARAM = 'case-study'
+const legacyCaseStudyIds: Record<string, string> = {
+  poketdex: 'cardtrove',
+}
 
 function getCaseStudyFromUrl() {
   const params = new URLSearchParams(window.location.search)
-  const id = params.get(CASE_STUDY_PARAM)
+  const rawId = params.get(CASE_STUDY_PARAM)
 
-  if (!id) {
+  if (!rawId) {
     return null
   }
+
+  const id = legacyCaseStudyIds[rawId] ?? rawId
 
   return portfolioItems.find((item) => item.id === id) ?? null
 }
