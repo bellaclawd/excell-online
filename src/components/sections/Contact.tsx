@@ -483,7 +483,10 @@ export default function Contact() {
                   )}
                 </motion.button>
                 <p className="text-xs text-gray-500 text-center">
-                  Prefer email? <a href={siteConfig.emailHref} className="text-gray-300 hover:text-white transition-colors">{siteConfig.email}</a>
+                  Prefer email? <a href={siteConfig.emailHref} className="text-gray-300 hover:text-white transition-colors">{siteConfig.email}</a> ·{' '}
+                  <a href="/privacy.html" className="text-gray-400 hover:text-white transition-colors">
+                    Privacy Policy
+                  </a>
                 </p>
               </form>
             )}

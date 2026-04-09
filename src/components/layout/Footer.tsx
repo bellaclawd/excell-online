@@ -167,9 +167,11 @@ export default function Footer() {
           <p className="text-xs text-gray-500">
             © 2026 {siteConfig.businessName}. All rights reserved.
           </p>
-          <p className="text-xs text-gray-500">
-            Designed and built in Toronto.
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-gray-500">
+            <span>Designed and built in Toronto.</span>
+            <a href="/privacy.html" className="hover:text-white transition-colors">Privacy</a>
+            <a href="/accessibility.html" className="hover:text-white transition-colors">Accessibility</a>
+          </div>
         </div>
       </div>
     </footer>
