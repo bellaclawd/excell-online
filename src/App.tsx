@@ -10,6 +10,7 @@ import WhyUs from './components/sections/WhyUs'
 import Process from './components/sections/Process'
 import Testimonials from './components/sections/Testimonials'
 import About from './components/sections/About'
+import PartnershipNote from './components/sections/PartnershipNote'
 import FAQ from './components/sections/FAQ'
 import Contact from './components/sections/Contact'
 import CTABanner from './components/sections/CTABanner'
@@ -53,6 +54,7 @@ export default function App() {
         <Process />
         <Testimonials />
         <About />
+        <PartnershipNote />
         <FAQ />
         <Contact />
       </main>

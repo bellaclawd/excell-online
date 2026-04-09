@@ -13,6 +13,12 @@ const config: Config = {
           light: '#FF2D47',
           dark: '#B50E22',
         },
+        gray: {
+          300: '#CDD3DE',
+          400: '#B0B8C6',
+          500: '#8D97A8',
+          600: '#6F7887',
+        },
         surface: {
           DEFAULT: '#161616',
           dark: '#111111',
