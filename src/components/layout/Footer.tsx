@@ -34,13 +34,14 @@ function Logo() {
 }
 
 const quickLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'AI Agents', href: '#ai-agents' },
-  { label: 'Our Work', href: '#portfolio' },
-  { label: 'About', href: '#about' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
-]
+  { label: 'Services', href: '#services', type: 'hash' },
+  { label: 'AI Agents', href: '#ai-agents', type: 'hash' },
+  { label: 'Our Work', href: '#portfolio', type: 'hash' },
+  { label: 'Case Studies', href: '/work/index.html', type: 'page' },
+  { label: 'About', href: '#about', type: 'hash' },
+  { label: 'FAQ', href: '#faq', type: 'hash' },
+  { label: 'Contact', href: '#contact', type: 'hash' },
+] as const
 
 const serviceLinks = [
   'Web Design',
@@ -108,13 +109,22 @@ export default function Footer() {
             <h4 className="font-heading font-semibold text-white text-sm mb-5">Quick Links</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <button
-                    onClick={() => handleNav(link.href)}
-                    className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    {link.label}
-                  </button>
+                <li key={`${link.type}-${link.href}`}>
+                  {link.type === 'hash' ? (
+                    <button
+                      onClick={() => handleNav(link.href)}
+                      className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

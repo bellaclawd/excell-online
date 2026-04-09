@@ -4,7 +4,7 @@ import SectionBadge from '../ui/SectionBadge'
 import Button from '../ui/Button'
 import { siteConfig } from '../../config/site'
 import { testimonials } from '../../data/testimonials'
-import { navigateToHref, scrollToHash } from '../../utils/navigation'
+import { navigateToHref } from '../../utils/navigation'
 
 const proofNotes = [
   {
@@ -108,8 +108,8 @@ export default function ResultsSnapshot() {
             </div>
 
             <div className="flex flex-wrap gap-3 mt-8">
-              <Button variant="ghost" onClick={() => scrollToHash('#testimonials')}>
-                Read client stories
+              <Button variant="ghost" href="/work/index.html">
+                Browse full case studies
               </Button>
               <Button onClick={() => navigateToHref(siteConfig.primaryCtaHref)}>
                 {siteConfig.primaryCtaLabel}

@@ -4,12 +4,14 @@ import { ArrowUpRight, ExternalLink } from 'lucide-react'
 import SectionBadge from '../ui/SectionBadge'
 import Button from '../ui/Button'
 import CaseStudyModal from '../ui/CaseStudyModal'
-import { portfolioItems, type PortfolioItem } from '../../data/portfolio'
+import {
+  getCaseStudyPath,
+  portfolioItems,
+  resolvePortfolioId,
+  type PortfolioItem,
+} from '../../data/portfolio'
 
 const CASE_STUDY_PARAM = 'case-study'
-const legacyCaseStudyIds: Record<string, string> = {
-  poketdex: 'cardtrove',
-}
 
 function getCaseStudyFromUrl() {
   const params = new URLSearchParams(window.location.search)
@@ -19,7 +21,7 @@ function getCaseStudyFromUrl() {
     return null
   }
 
-  const id = legacyCaseStudyIds[rawId] ?? rawId
+  const id = resolvePortfolioId(rawId)
 
   return portfolioItems.find((item) => item.id === id) ?? null
 }
@@ -99,9 +101,15 @@ export default function Portfolio() {
               <span className="text-gradient">Speaks for Itself</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl leading-relaxed">
-              Explore the live build or read the case-study breakdown without leaving the page.
-              The goal is not just to show polished work, but to show what each project proves.
+              Explore the live build, open the quick on-page breakdown, or go deeper with the
+              full case study. The goal is not just to show polished work, but to show what each
+              project proves.
             </p>
+            <div className="flex flex-wrap gap-3 mt-6">
+              <Button href="/work/index.html" variant="ghost">
+                Browse case study library
+              </Button>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -145,7 +153,7 @@ export default function Portfolio() {
                   <button
                     type="button"
                     onClick={() => openCaseStudy(item)}
-                    aria-label={`Read the ${item.title} case study`}
+                    aria-label={`Open a quick preview of the ${item.title} case study`}
                     className="w-10 h-10 rounded-full border border-white/15 bg-black/25 text-white flex items-center justify-center backdrop-blur-sm hover:border-white/30 transition-colors"
                   >
                     <ArrowUpRight size={16} />
@@ -178,8 +186,8 @@ export default function Portfolio() {
                     ))}
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    <Button size="sm" onClick={() => openCaseStudy(item)}>
-                      Read case study
+                    <Button size="sm" href={getCaseStudyPath(item)}>
+                      Full case study
                     </Button>
                     <a
                       href={item.url}
@@ -231,7 +239,7 @@ export default function Portfolio() {
                 <button
                   type="button"
                   onClick={() => openCaseStudy(item)}
-                  aria-label={`Read the ${item.title} case study`}
+                  aria-label={`Open a quick preview of the ${item.title} case study`}
                   className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 bg-black/25 text-white flex items-center justify-center backdrop-blur-sm hover:border-white/30 transition-colors"
                 >
                   <ArrowUpRight size={16} />
@@ -260,14 +268,13 @@ export default function Portfolio() {
                     ))}
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    <button
-                      type="button"
-                      onClick={() => openCaseStudy(item)}
+                    <a
+                      href={getCaseStudyPath(item)}
                       className="inline-flex items-center gap-2 text-sm text-white font-semibold hover:text-brand-light transition-colors"
                     >
-                      Read case study
+                      Full case study
                       <ArrowUpRight size={13} />
-                    </button>
+                    </a>
                     <a
                       href={item.url}
                       target="_blank"

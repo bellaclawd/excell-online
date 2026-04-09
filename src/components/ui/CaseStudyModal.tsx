@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, ExternalLink, Link2, X } from 'lucide-react'
-import type { PortfolioItem } from '../../data/portfolio'
+import { getCaseStudyPath, type PortfolioItem } from '../../data/portfolio'
 
 interface CaseStudyModalProps {
   item: PortfolioItem | null
@@ -20,6 +20,12 @@ export default function CaseStudyModal({ item, onClose }: CaseStudyModalProps) {
     setCopied(false)
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        onClose()
+        return
+      }
+
       if (!dialogRef.current || event.key !== 'Tab') {
         return
       }
@@ -48,18 +54,14 @@ export default function CaseStudyModal({ item, onClose }: CaseStudyModalProps) {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [item])
+  }, [item, onClose])
 
   const copyCaseStudyLink = async () => {
     if (!item) {
       return
     }
 
-    const url = new URL(window.location.href)
-    url.searchParams.set('case-study', item.id)
-    if (!url.hash) {
-      url.hash = '#portfolio'
-    }
+    const url = new URL(getCaseStudyPath(item), window.location.origin)
 
     try {
       if (navigator.clipboard?.writeText) {
@@ -163,6 +165,25 @@ export default function CaseStudyModal({ item, onClose }: CaseStudyModalProps) {
                 <div className="space-y-6">
                   <section>
                     <div className="text-[11px] uppercase tracking-[0.28em] text-red-400 font-semibold mb-3">
+                      Snapshot
+                    </div>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                      {item.snapshot.map((entry) => (
+                        <div
+                          key={entry.label}
+                          className="rounded-xl px-4 py-4 border border-white/8 bg-white/[0.03]"
+                        >
+                          <div className="text-[10px] uppercase tracking-[0.24em] text-gray-500 font-semibold mb-2">
+                            {entry.label}
+                          </div>
+                          <p className="text-sm text-gray-300 leading-relaxed">{entry.value}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section>
+                    <div className="text-[11px] uppercase tracking-[0.28em] text-red-400 font-semibold mb-3">
                       The Challenge
                     </div>
                     <p className="text-gray-300 leading-relaxed">
@@ -182,6 +203,22 @@ export default function CaseStudyModal({ item, onClose }: CaseStudyModalProps) {
                         >
                           {point}
                         </div>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section>
+                    <div className="text-[11px] uppercase tracking-[0.28em] text-red-400 font-semibold mb-3">
+                      What Shipped
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {item.deliverables.map((deliverable) => (
+                        <span
+                          key={deliverable}
+                          className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-300 border border-white/10 bg-white/[0.04]"
+                        >
+                          {deliverable}
+                        </span>
                       ))}
                     </div>
                   </section>
@@ -236,26 +273,35 @@ export default function CaseStudyModal({ item, onClose }: CaseStudyModalProps) {
                       Explore Further
                     </div>
                     <p className="text-sm text-gray-300 leading-relaxed mb-5">
-                      See the live build for yourself, then come back to compare how the proof,
-                      pacing, and interface choices show up in the finished experience.
+                      Use this quick preview for the headline takeaways, then open the full case
+                      study if you want the deeper write-up and standalone shareable page.
                     </p>
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-brand hover:bg-brand-light text-white font-semibold transition-colors"
-                    >
-                      Visit live project
-                      <ExternalLink size={15} />
-                    </a>
+                    <div className="flex flex-wrap gap-3">
+                      <a
+                        href={getCaseStudyPath(item)}
+                        className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-white font-semibold border border-white/12 bg-white/[0.05] hover:border-white/20 transition-colors"
+                      >
+                        Open full case study
+                        <ArrowUpRight size={15} />
+                      </a>
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-brand hover:bg-brand-light text-white font-semibold transition-colors"
+                      >
+                        Visit live project
+                        <ExternalLink size={15} />
+                      </a>
+                    </div>
 
                     <button
                       type="button"
                       onClick={copyCaseStudyLink}
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-white font-semibold border border-white/12 bg-white/[0.05] hover:border-white/20 transition-colors ml-0 mt-3 sm:ml-3 sm:mt-0"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-white font-semibold border border-white/12 bg-white/[0.05] hover:border-white/20 transition-colors mt-3"
                     >
                       <Link2 size={15} />
-                      {copied ? 'Link copied' : 'Copy case study link'}
+                      {copied ? 'Link copied' : 'Copy full case study link'}
                     </button>
 
                     <div className="flex flex-wrap gap-2 mt-5">
