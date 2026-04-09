@@ -25,8 +25,8 @@ const pillars = [
 ]
 
 const differentiators = [
-  'Live work on the homepage instead of placeholder mockups',
-  'Named client stories across multiple industries',
+  'Live work and on-site case-study context instead of placeholder mockups',
+  'Named client stories with clearer outcome framing',
   'Direct communication that keeps decisions fast and specific',
   'Copy, hierarchy, design, and conversion thinking shaped together',
   'Performance and responsiveness treated as product quality',

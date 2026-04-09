@@ -6,6 +6,7 @@ import TrustBar from './components/sections/TrustBar'
 import Services from './components/sections/Services'
 import AISection from './components/sections/AISection'
 import Portfolio from './components/sections/Portfolio'
+import ResultsSnapshot from './components/sections/ResultsSnapshot'
 import WhyUs from './components/sections/WhyUs'
 import Process from './components/sections/Process'
 import Testimonials from './components/sections/Testimonials'
@@ -49,6 +50,7 @@ export default function App() {
         <Services />
         <AISection />
         <Portfolio />
+        <ResultsSnapshot />
         <CTABanner />
         <WhyUs />
         <Process />

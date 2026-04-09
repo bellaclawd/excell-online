@@ -6,6 +6,8 @@ export interface Testimonial {
   location: string
   industry: string
   engagement: string
+  resultValue: string
+  resultSummary: string
   quote: string
   highlight: string
   initials: string
@@ -21,6 +23,8 @@ export const testimonials: Testimonial[] = [
     location: 'Yorkville, Toronto',
     industry: 'Hospitality',
     engagement: 'Website redesign + AI booking flow',
+    resultValue: '+340%',
+    resultSummary: 'online orders after launch',
     quote: "Excell Online completely transformed our online presence. Our new website and AI booking system drove a 340% increase in online orders within the first three months. The team understood our brand immediately and delivered beyond expectations.",
     highlight: '+340% online orders after launch',
     initials: 'MV',
@@ -34,6 +38,8 @@ export const testimonials: Testimonial[] = [
     location: 'Liberty Village, Toronto',
     industry: 'E-Commerce',
     engagement: 'Brand-led commerce redesign',
+    resultValue: '3.8%',
+    resultSummary: 'conversion rate after redesign',
     quote: "Our e-commerce conversion rate jumped from 1.2% to 3.8% after the redesign. Excell Online didn't just build a website — they built a revenue engine. The attention to detail and post-launch support has been exceptional.",
     highlight: 'Conversion jumped from 1.2% to 3.8%',
     initials: 'PS',
@@ -47,6 +53,8 @@ export const testimonials: Testimonial[] = [
     location: 'Scarborough, Toronto',
     industry: 'Property',
     engagement: 'Tenant communication automation',
+    resultValue: '24/7',
+    resultSummary: 'tenant communications handled automatically',
     quote: "The AI agents Excell built now handle our tenant communications around the clock. What used to take our team hours every day is fully automated. It's been a game-changer for our property management operations.",
     highlight: 'AI agents handling all tenant communications',
     initials: 'DC',
@@ -60,6 +68,8 @@ export const testimonials: Testimonial[] = [
     location: 'Mississauga, ON',
     industry: 'Legal',
     engagement: 'Trust-first website redesign',
+    resultValue: 'Higher',
+    resultSummary: 'client intake after the redesign',
     quote: "We needed a website that conveyed trust and professionalism. Excell Online delivered exactly that — and then some. Our client intake has increased significantly and the site reflects exactly who we are as a firm.",
     highlight: 'Professional redesign that drives client intake',
     initials: 'AK',
@@ -73,6 +83,8 @@ export const testimonials: Testimonial[] = [
     location: 'Toronto, ON',
     industry: 'SaaS',
     engagement: 'Custom logistics platform build',
+    resultValue: 'On time',
+    resultSummary: 'and under budget for a full custom build',
     quote: "Excell built our entire logistics platform from scratch — real-time tracking, driver dashboards, client portals. The technical depth of their team is outstanding. They delivered on time and under budget.",
     highlight: 'Full custom logistics platform, on time & under budget',
     initials: 'JO',
